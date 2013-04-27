@@ -3,6 +3,8 @@ ig.module(
 )
 .requires(
   'impact.entity'
+  'game.entities.ship'
+  'game.entities.fighter'
 )
 .defines =>
   @EntityPlanet = ig.Entity.extend
@@ -28,7 +30,10 @@ ig.module(
 
       @parent x, y, settings
       @addAnim 'idle', 1, [color]
-      @ship = ig.game.spawnEntity EntityShip, @pos.x, @pos.y+4, ki: settings.enemy
+      @ship = if [true, false].random()
+        ig.game.spawnEntity EntityShip, @pos.x, @pos.y+4, ki: settings.enemy
+      else
+        ig.game.spawnEntity EntityFighter, @pos.x+4, @pos.y+5, ki: settings.enemy
 
     update: ->
       if @marked() and ig.input.pressed 'click'
