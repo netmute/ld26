@@ -31,8 +31,6 @@ ig.module(
       @laserSound.volume = .3
       @explosionSound.volume = .5
       @confirmSound.volume = .2
-      ig.music.add "media/music.ogg"
-      ig.music.play()
 
     update: ->
       @parent()
@@ -136,6 +134,8 @@ ig.module(
     title: new ig.Image "media/title.png"
 
     init: ->
+      ig.music.add "media/music.ogg"
+      ig.music.play()
       ig.input.bind ig.KEY.MOUSE1, 'click'
       @spawnEntity EntityStar for num in [1..150]
       @spawnEntity EntityTutorial, ig.system.width/2, ig.system.height - 95
