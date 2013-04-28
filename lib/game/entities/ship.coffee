@@ -3,6 +3,7 @@ ig.module(
 )
 .requires(
   'plugins.steering-behaviors'
+  'game.entities.explosion'
 )
 .defines =>
   @EntityShip = SteeringBehaviorsEntity.extend
@@ -23,7 +24,7 @@ ig.module(
 
     init: (x, y, settings) ->
       @parent x, y, settings
-      @addAnim 'idle', 1, [0]
+      @addAnim 'idle', 1, [@ki ? 1 : 0]
       if @ki
         @kiTimer = new ig.Timer 4
         @marker = new ig.Animation @markerSheet, 1, [0]
@@ -73,3 +74,7 @@ ig.module(
       @ki and
       ( ig.input.mouse.x.floor() in [@pos.x.floor()..(@pos.x+@size.x).ceil()] ) and
       ( ig.input.mouse.y.floor() in [@pos.y.floor()..(@pos.y+@size.y).ceil()] )
+
+    kill: ->
+      ig.game.spawnEntity EntityExplosion, @pos.x, @pos.y
+      @parent()

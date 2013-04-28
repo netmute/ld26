@@ -2,6 +2,7 @@ ig.module(
   'game.entities.fighter'
 )
 .requires(
+  'game.entities.explosion'
   'plugins.steering-behaviors'
 )
 .defines =>
@@ -20,7 +21,7 @@ ig.module(
 
     init: (x, y, settings) ->
       @parent x, y, settings
-      @addAnim 'idle', 1, [0]
+      @addAnim 'idle', 1, [@ki ? 1 : 0]
       if @ki
         @kiTimer = new ig.Timer 1
       @shootTimer = new ig.Timer 1
@@ -70,3 +71,7 @@ ig.module(
           @target = entities[0]
           @arriveActive = true
         @kiTimer.reset()
+
+    kill: ->
+      ig.game.spawnEntity EntityExplosion, @pos.x-5, @pos.y-5
+      @parent()

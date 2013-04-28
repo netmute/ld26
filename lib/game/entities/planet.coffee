@@ -5,6 +5,7 @@ ig.module(
   'impact.entity'
   'game.entities.ship'
   'game.entities.fighter'
+  'game.entities.explosion'
 )
 .defines =>
   @EntityPlanet = ig.Entity.extend
@@ -61,4 +62,5 @@ ig.module(
 
     kill: ->
       @ship.kill()
+      ig.game.spawnEntity EntityExplosion, @pos.x, @pos.y
       @parent()
