@@ -46,7 +46,7 @@ ig.module(
         if playerPlanets.length < enemyPlanets.length
           @write "You've lost the war.", @enemyFont
         if playerPlanets.length is enemyPlanets.length
-          @write "The war if over. Tie.", @playerFont
+          @write "The war is over. Tie.", @playerFont
 
     write: (text, font) ->
       font.draw text, ig.system.width/2, ig.system.height/2 - font.height, ig.Font.ALIGN.CENTER
