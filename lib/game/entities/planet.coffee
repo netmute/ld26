@@ -54,6 +54,7 @@ ig.module(
 
     update: ->
       if @marked() and ig.input.pressed 'click'
+        ig.game.confirmSound.play()
         @sendShip()
       @parent()
 

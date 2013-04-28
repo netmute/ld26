@@ -44,6 +44,9 @@ ig.module(
 
     shoot: ->
       if @shootTimer.delta() > 0
+        if not @soundPlayed
+          ig.game.laserSound.play()
+          @soundPlayed = yes
         ig.system.context.strokeStyle = "#0f0"
         ig.system.context.lineWidth = 1.0
         ig.system.context.beginPath()
@@ -59,6 +62,7 @@ ig.module(
         ig.system.context.closePath()
       if @shootTimer.delta() > 0.2
         @target.receiveDamage 1
+        @soundPlayed = no
         @shootTimer.reset()
 
     handleKI: ->

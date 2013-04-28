@@ -13,6 +13,10 @@ ig.module(
     playerFont: new ig.Font "media/player_font.png"
     enemyFont: new ig.Font "media/enemy_font.png"
 
+    laserSound: new ig.Sound "media/laser.ogg", false
+    explosionSound: new ig.Sound "media/explosion.ogg", false
+    confirmSound: new ig.Sound "media/confirm.ogg"
+
     planets: []
 
     init: ->
@@ -22,6 +26,11 @@ ig.module(
       @spawnEntity EntityPlanet, enemy: false, ship: "fighter" for num in [1..3]
       @spawnEntity EntityPlanet, enemy: true, ship: "destroyer" for num in [1..3]
       @spawnEntity EntityPlanet, enemy: true, ship: "fighter" for num in [1..3]
+      @laserSound.volume = .3
+      @explosionSound.volume = .5
+      @confirmSound.volume = .2
+      ig.music.add "media/music.ogg"
+      ig.music.play()
 
     update: ->
       @parent()

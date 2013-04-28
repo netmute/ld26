@@ -18,6 +18,7 @@ ig.module(
       @parent x, y, settings
       @addAnim 'idle', .1, [0,1,2,3]
       @dieTimer = new ig.Timer .4
+      ig.game.explosionSound.play()
 
     update: ->
       @parent()

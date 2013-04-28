@@ -37,6 +37,7 @@ ig.module(
         @target.kill()
         @target = false
       if @marked() and ig.input.pressed 'click'
+        ig.game.confirmSound.play()
         @sendFighter()
       @currentAnim.angle = Math.atan2(@vel.y, @vel.x)
       if @target
