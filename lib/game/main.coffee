@@ -5,6 +5,8 @@ ig.module(
   'impact.game'
   'game.entities.planet'
   'game.entities.star'
+  'game.entities.play'
+  'game.entities.tutorial'
   'impact.debug.debug'
 )
 .defines =>
@@ -88,7 +90,7 @@ ig.module(
       if @tutorialSection is 4
         @renderFourthSection()
       if @tutorialSection is 5
-        ig.system.setGame MyGame
+        ig.system.setGame Menu
 
       @font.draw "Click to continue", ig.system.width/2, ig.system.height-(6+@font.height), ig.Font.ALIGN.CENTER
 
@@ -129,4 +131,18 @@ ig.module(
       @font.draw "The game ends if all Battleships\n are destroyed, or if one side\n has no planets left.", ig.system.width/2, 6+2*@font.height, ig.Font.ALIGN.CENTER
       @font.draw "The side with the most planets\n left wins the game.", ig.system.width/2, 6+6*@font.height, ig.Font.ALIGN.CENTER
 
-  ig.main '#canvas', Tutorial, 60, 400, 300, 2
+  @Menu = ig.Game.extend
+
+    title: new ig.Image "media/title.png"
+
+    init: ->
+      ig.input.bind ig.KEY.MOUSE1, 'click'
+      @spawnEntity EntityStar for num in [1..150]
+      @spawnEntity EntityTutorial, ig.system.width/2, ig.system.height - 95
+      @spawnEntity EntityPlay, ig.system.width/2, ig.system.height - 70
+
+    draw: ->
+      @parent()
+      @title.draw 0, 50
+
+  ig.main '#canvas', Menu, 60, 400, 300, 2
