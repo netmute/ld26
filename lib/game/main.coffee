@@ -7,7 +7,7 @@ ig.module(
   'game.entities.star'
   'game.entities.play'
   'game.entities.tutorial'
-  'impact.debug.debug'
+  # 'impact.debug.debug'
 )
 .defines =>
   @MyGame = ig.Game.extend
