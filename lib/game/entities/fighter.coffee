@@ -73,5 +73,6 @@ ig.module(
         @kiTimer.reset()
 
     kill: ->
-      ig.game.spawnEntity EntityExplosion, @pos.x-5, @pos.y-5
+      if not @_killed
+        ig.game.spawnEntity EntityExplosion, @pos.x-5, @pos.y-5
       @parent()

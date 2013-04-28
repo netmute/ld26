@@ -4,6 +4,7 @@ ig.module(
 .requires(
   'impact.game'
   'game.entities.planet'
+  'game.entities.star'
   'impact.debug.debug'
 )
 .defines =>
@@ -14,6 +15,7 @@ ig.module(
 
     init: ->
       ig.input.bind ig.KEY.MOUSE1, 'click'
+      @spawnEntity EntityStar for num in [1..150]
       @spawnEntity EntityPlanet, enemy: false for num in [1..6]
       @spawnEntity EntityPlanet, enemy: true for num in [1..6]
 

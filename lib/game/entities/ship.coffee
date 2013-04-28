@@ -76,5 +76,6 @@ ig.module(
       ( ig.input.mouse.y.floor() in [@pos.y.floor()..(@pos.y+@size.y).ceil()] )
 
     kill: ->
-      ig.game.spawnEntity EntityExplosion, @pos.x, @pos.y
+      if not @_killed
+        ig.game.spawnEntity EntityExplosion, @pos.x, @pos.y
       @parent()
