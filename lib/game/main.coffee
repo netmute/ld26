@@ -37,15 +37,21 @@ ig.module(
       @enemyFont.draw enemyPlanets.length, ig.system.width-2, 2, ig.Font.ALIGN.RIGHT
 
       if playerPlanets.length is 0
-        @enemyFont.draw "You have been annihilated.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+        @write "You've been annihilated.", @enemyFont
       if enemyPlanets.length is 0
-        @playerFont.draw "You have won the war.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+        @write "You've won the war!", @playerFont
       if playerShips.length is 0 and enemyShips.length is 0
         if playerPlanets.length > enemyPlanets.length
-          @playerFont.draw "You have won the war.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+          @write "You've won the war!", @playerFont
         if playerPlanets.length < enemyPlanets.length
-          @enemyFont.draw "You have lost the war.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+          @write "You've lost the war.", @enemyFont
         if playerPlanets.length is enemyPlanets.length
-          @playerFont.draw "The war is over. Draw.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+          @write "The war if over. Tie.", @playerFont
+
+    write: (text, font) ->
+      font.draw text, ig.system.width/2, ig.system.height/2 - font.height, ig.Font.ALIGN.CENTER
+      font.draw "Click to play again.", ig.system.width/2, ig.system.height/2, ig.Font.ALIGN.CENTER
+      if ig.input.pressed 'click'
+        ig.system.setGame MyGame
 
   ig.main '#canvas', MyGame, 60, 400, 300, 2
