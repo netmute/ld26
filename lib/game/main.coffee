@@ -16,8 +16,10 @@ ig.module(
     init: ->
       ig.input.bind ig.KEY.MOUSE1, 'click'
       @spawnEntity EntityStar for num in [1..150]
-      @spawnEntity EntityPlanet, enemy: false for num in [1..6]
-      @spawnEntity EntityPlanet, enemy: true for num in [1..6]
+      @spawnEntity EntityPlanet, enemy: false, ship: "destroyer" for num in [1..3]
+      @spawnEntity EntityPlanet, enemy: false, ship: "fighter" for num in [1..3]
+      @spawnEntity EntityPlanet, enemy: true, ship: "destroyer" for num in [1..3]
+      @spawnEntity EntityPlanet, enemy: true, ship: "fighter" for num in [1..3]
 
     update: ->
       @parent()
