@@ -13,6 +13,8 @@ ig.module(
     playerFont: new ig.Font "media/player_font.png"
     enemyFont: new ig.Font "media/enemy_font.png"
 
+    planets: []
+
     init: ->
       ig.input.bind ig.KEY.MOUSE1, 'click'
       @spawnEntity EntityStar for num in [1..150]

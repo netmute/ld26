@@ -21,20 +21,36 @@ ig.module(
     zIndex: 1
 
     init: (settings) ->
-      half = ig.system.width / 2
-      x = half * Math.random()
-      x = x + (half - @size.x) if settings.enemy
-      y = (ig.system.height - @size.y) * Math.random()
+      randomPos = @findPosition(settings)
+      @parent randomPos.x, randomPos.y, settings
+
       color = settings.enemy ? 1 : 0
+      @addAnim 'idle', 1, [color]
 
       @marker = new ig.Animation @markerSheet, 1, [0]
-
-      @parent x, y, settings
-      @addAnim 'idle', 1, [color]
       @ship = if settings.ship is "destroyer"
         ig.game.spawnEntity EntityShip, @pos.x, @pos.y+4, ki: settings.enemy
       else
         ig.game.spawnEntity EntityFighter, @pos.x+4, @pos.y+5, ki: settings.enemy
+
+      ig.game.planets.push this
+
+    findPosition: (settings) ->
+      half = ig.system.width / 2
+      x = half * Math.random()
+      x = x + (half - @size.x) if settings.enemy
+      y = (ig.system.height - @size.y) * Math.random()
+      works = yes
+      for planet in ig.game.planets
+        px = planet.pos.x.ceil()
+        xBlocked = x.ceil() in [px-32..px+48]
+        py = planet.pos.y.ceil()
+        yBlocked = y.ceil() in [py-32..py+48]
+        works = no if xBlocked and yBlocked
+      if works
+        {x:x, y:y}
+      else
+        @findPosition(settings)
 
     update: ->
       if @marked() and ig.input.pressed 'click'
